@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PATH = {
   src: path.join(__dirname, '../src'),
@@ -17,9 +18,21 @@ module.exports = {
     app: PATH.src,
   },
   output: {
-    filename: `${PATH.assets}js/[name].js`,
+    filename: `${PATH.assets}js/[name].[contenthash].js`,
     path: PATH.dist,
     publicPath: '/',
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          name: 'vendors',
+          test: /node_modules/,
+          chunks: 'all',
+          enforce: true,
+        }
+      }
+    }
   },
   module: {
     rules: [
@@ -28,6 +41,13 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: `babel-loader`,
+        },
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+        options: {
+          emitFile: false,
         },
       },
       {
@@ -73,18 +93,24 @@ module.exports = {
       },
     ]
   },
+  resolve: {
+    alias: {
+      '~': 'src',
+    }
+  },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: `${PATH.assets}css/[name].css`,
+      filename: `${PATH.assets}css/[name].[contenthash].css`,
     }),
     new HtmlWebpackPlugin({
-      hash: false,
       template: `${PATH.src}/index.html`,
       filename: './index.html',
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: `${PATH.src}/img`, to: `${PATH.assets}img` },
+        { from: `${PATH.src}/${PATH.assets}img`, to: `${PATH.assets}img` },
+        { from: `${PATH.src}/${PATH.assets}fonts`, to: `${PATH.assets}fonts` },
         { from: `${PATH.src}/static`, to: '' }
       ]
     }),
