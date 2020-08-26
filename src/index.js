@@ -7,8 +7,8 @@ import Example from './components/example/example.jsx';
 
 const init = () => {
   ReactDOM.render(
-    <Example/>,
-    document.querySelector(`#root`)
+      <Example/>,
+      document.querySelector(`#root`)
   );
 };
 

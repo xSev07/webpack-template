@@ -6,9 +6,11 @@
   @if (unitless($pixels)) {
     $pixels: $pixels * 1px;
   }
+
   @if (unitless($context)) {
     $context: $context * 1px;
   }
+
   @return $pixels / $context * 1rem;
 }
 
@@ -23,12 +25,15 @@
   ::-webkit-input-placeholder {
     @content;
   }
+
   :-moz-placeholder {
     @content;
   }
+
   ::-moz-placeholder {
     @content;
   }
+
   :-ms-input-placeholder {
     @content;
   }
@@ -72,8 +77,8 @@
     font-weight: $weight;
     font-style: $style;
 
-    src: url('#{$file-path}.woff') format('woff'),
-    url('#{$file-path}.woff2') format('woff2');
+    src: url("#{$file-path}.woff") format("woff"),
+      url("#{$file-path}.woff2") format("woff2");
   }
 }
 
