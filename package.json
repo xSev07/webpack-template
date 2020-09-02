@@ -7,8 +7,8 @@
     "stylelint": "stylelint \"src/assets/scss/**/*.scss\" --syntax scss",
     "eslint": "eslint --ext .jsx --ext .js src/",
     "test": "npm run stylelint && npm run eslint",
-    "dev": "webpack-dev-server --config build/webpack.dev.conf.js",
-    "build": "webpack --config build/webpack.build.conf.js"
+    "dev": "webpack-dev-server --config webpack-config/webpack.dev.conf.js",
+    "build": "webpack --config webpack-config/webpack.build.conf.js"
   },
   "browserslist": [
     "> 1%",
