@@ -13,4 +13,4 @@ node_modules/
 templates.js
 
 # Файлы сборки
-dist/
+build/
